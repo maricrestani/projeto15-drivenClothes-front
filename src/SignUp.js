@@ -1,4 +1,5 @@
 import axios from "axios";
+import Header from "./Header";
 import { React, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -34,51 +35,54 @@ export default function SignUp() {
   }
 
   return (
-    <LoginContainer>
-      <h1>Driven Clothes</h1>
-      <h2>CRIE UMA CONTA</h2>
-      <form onSubmit={signUp}>
-        <input
-          required
-          name="name"
-          value={register.name}
-          placeholder="Nome"
-          type="text"
-          onChange={handleForm}
-        />
-        <input
-          required
-          name="email"
-          value={register.email}
-          placeholder="E-mail"
-          type="email"
-          onChange={handleForm}
-        />
-        <input
-          required
-          name="password"
-          value={register.password}
-          placeholder="Senha"
-          type="password"
-          onChange={handleForm}
-        />
-        <input
-          required
-          name="repeat_password"
-          value={register.repeat_password}
-          placeholder="Confirme a senha"
-          type="password"
-          onChange={handleForm}
-        />
-        <button type="submit">CADASTRAR</button>
-      </form>
-      <Link to={"/signin"}>
-        <h3>Já possuí uma conta? Entre</h3>
-      </Link>
-      <Link to={"/"}>
-        <h3>Retonar para a página inicial</h3>
-      </Link>
-    </LoginContainer>
+    <>
+      <Header></Header>
+      <LoginContainer>
+        <h1>Driven Clothes</h1>
+        <h2>CRIE UMA CONTA</h2>
+        <form onSubmit={signUp}>
+          <input
+            required
+            name="name"
+            value={register.name}
+            placeholder="Nome"
+            type="text"
+            onChange={handleForm}
+          />
+          <input
+            required
+            name="email"
+            value={register.email}
+            placeholder="E-mail"
+            type="email"
+            onChange={handleForm}
+          />
+          <input
+            required
+            name="password"
+            value={register.password}
+            placeholder="Senha"
+            type="password"
+            onChange={handleForm}
+          />
+          <input
+            required
+            name="repeat_password"
+            value={register.repeat_password}
+            placeholder="Confirme a senha"
+            type="password"
+            onChange={handleForm}
+          />
+          <button type="submit">CADASTRAR</button>
+        </form>
+        <Link to={"/signin"}>
+          <h3>Já possuí uma conta? Entre</h3>
+        </Link>
+        <Link to={"/"}>
+          <h3>Retonar para a página inicial</h3>
+        </Link>
+      </LoginContainer>
+    </>
   );
 }
 
