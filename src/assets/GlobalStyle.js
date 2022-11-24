@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	background-color: white;
+	font-family: roboto;
 }
 ol, ul {
 	list-style: none;
@@ -46,7 +47,6 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}`
+}`;
 
-
-export default GlobalStyle
+export default GlobalStyle;

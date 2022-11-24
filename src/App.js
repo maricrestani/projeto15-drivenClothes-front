@@ -1,4 +1,4 @@
-import GlobalStyle from "./GlobalStyle";
+import GlobalStyle from "./assets/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthContext from "./auth";
 import Home from "./Home";
@@ -26,7 +26,7 @@ export default function App() {
           <Route path="/class/shoes" element={<Shoes />} />
           <Route path="/class/coats" element={<Coats />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/signup" element={<SignIn />} />
+          <Route path="/signin" element={<SignIn />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
