@@ -1,24 +1,54 @@
+import axios from "axios";
+import { React, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+const URL = "http://localhost:5000";
 
 export default function SignIn() {
+  const [login, setLogin] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  function handleForm(e) {
+    const { name, value } = e.target;
+    setLogin({ ...login, [name]: value });
+  }
+
+  function SignIn(e) {
+    e.preventDefault();
+
+    axios
+      .post(`${URL}/signin`, login)
+      .then((res) => {
+        navigate("/");
+      })
+
+      .catch((err) => {
+        alert(`Falha no login - ${err.message}`);
+      });
+  }
+
   return (
     <LoginContainer>
       <h1>Driven Clothes</h1>
-      <form onSubmit={""}>
+      <form onSubmit={SignIn}>
         <input
           required
           name="email"
-          value={""}
+          value={login.email}
           placeholder="E-mail"
           type="email"
+          onChange={handleForm}
         />
         <input
           required
           name="password"
-          value={""}
+          value={login.password}
           placeholder="Senha"
           type="password"
+          onChange={handleForm}
         />
         <button type="submit">ENTRAR</button>
       </form>

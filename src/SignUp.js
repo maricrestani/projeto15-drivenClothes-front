@@ -2,7 +2,6 @@ import axios from "axios";
 import { React, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-//import URL from "./constants/URL.js";
 const URL = "http://localhost:5000";
 
 export default function SignUp() {
@@ -17,7 +16,6 @@ export default function SignUp() {
   function handleForm(e) {
     const { name, value } = e.target;
     setRegister({ ...register, [name]: value });
-    console.log("refister", register);
   }
 
   function signUp(e) {
