@@ -4,7 +4,7 @@ import AuthContext from "./auth";
 import Home from "./Home";
 import Cart from "./Cart";
 import Checkout from "./Checkout";
-import SignIn from "./Signin";
+import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { useState } from "react";
 import Coats from "./Coats";

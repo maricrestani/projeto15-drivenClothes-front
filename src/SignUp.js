@@ -1,45 +1,82 @@
+import axios from "axios";
+import { React, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+const URL = "http://localhost:5000";
 
 export default function SignUp() {
+  const [register, setRegister] = useState({
+    email: "",
+    name: "",
+    password: "",
+    repeat_password: "",
+  });
+  const navigate = useNavigate();
+
+  function handleForm(e) {
+    const { name, value } = e.target;
+    setRegister({ ...register, [name]: value });
+  }
+
+  function signUp(e) {
+    e.preventDefault();
+
+    axios
+      .post(`${URL}/signup`, register)
+
+      .then((res) => {
+        navigate("/");
+      })
+
+      .catch((err) => {
+        alert(`Falha no cadastro - ${err.message}`);
+      });
+  }
+
   return (
     <LoginContainer>
       <h1>Driven Clothes</h1>
       <h2>CRIE UMA CONTA</h2>
-      <form onSubmit={""}>
+      <form onSubmit={signUp}>
         <input
           required
           name="name"
-          value={""}
+          value={register.name}
           placeholder="Nome"
           type="text"
-          onChange={""}
+          onChange={handleForm}
         />
         <input
           required
           name="email"
-          value={""}
+          value={register.email}
           placeholder="E-mail"
           type="email"
+          onChange={handleForm}
         />
         <input
           required
           name="password"
-          value={""}
+          value={register.password}
           placeholder="Senha"
           type="password"
+          onChange={handleForm}
         />
         <input
           required
-          name="consfirmPassword"
-          value={""}
+          name="repeat_password"
+          value={register.repeat_password}
           placeholder="Confirme a senha"
           type="password"
+          onChange={handleForm}
         />
         <button type="submit">CADASTRAR</button>
       </form>
       <Link to={"/signin"}>
         <h3>Já possuí uma conta? Entre</h3>
+      </Link>
+      <Link to={"/"}>
+        <h3>Retonar para a página inicial</h3>
       </Link>
     </LoginContainer>
   );
@@ -102,6 +139,6 @@ const LoginContainer = styled.div`
     font-weight: 400;
     font-size: 14px;
     color: black;
-    margin-bottom: 100px;
+    margin-bottom: 30px;
   }
 `;

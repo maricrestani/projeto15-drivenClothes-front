@@ -1,12 +1,22 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import CartImg from "./cart-outline.svg";
+import CartImg from "./assets/icons/cart-outline.svg";
+import UserIcon from "./assets/icons/person.svg";
 
 export default function Header() {
   return (
     <HeaderContainer>
       <h1>Driven-Clothes</h1>
       <RightContainer>
-        <img src={CartImg} />
+        <Link to={"/signin"}>
+          {" "}
+          <img src={UserIcon} alt="usuário" />
+        </Link>
+        <Link to={"/cart"}>
+          {" "}
+          <img src={CartImg} alt="carrinho" />
+        </Link>
+
         <h2>0</h2>
       </RightContainer>
     </HeaderContainer>
