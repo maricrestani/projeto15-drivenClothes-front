@@ -75,6 +75,9 @@ export default function SignUp() {
       <Link to={"/signin"}>
         <h3>Já possuí uma conta? Entre</h3>
       </Link>
+      <Link to={"/"}>
+        <h3>Retonar para a página inicial</h3>
+      </Link>
     </LoginContainer>
   );
 }
@@ -136,6 +139,6 @@ const LoginContainer = styled.div`
     font-weight: 400;
     font-size: 14px;
     color: black;
-    margin-bottom: 100px;
+    margin-bottom: 30px;
   }
 `;
