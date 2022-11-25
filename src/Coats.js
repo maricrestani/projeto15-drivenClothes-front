@@ -1,6 +1,26 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
+
 export default function Coats() {
+  const [CasacoAzul, setCasacoAzul] = useState([]);
+  const [CasacoBranco, setCasacoBranco] = useState([]);
+  const [CasacoPreto, setCasacoPreto] = useState([]);
+  const [CasacoVerde, setCasacoVerde] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/Stockin")
+      .then((res) => {
+        setCasacoAzul(res.data.filter((e) => e.serial === "3001"));
+        setCasacoBranco(res.data.filter((e) => e.serial === "3002"));
+        setCasacoPreto(res.data.filter((e) => e.serial === "3003"));
+        setCasacoVerde(res.data.filter((e) => e.serial === "3004"));
+      })
+      .catch((err) => console.log(err));
+  });
+
   return (
     <>
       <Header></Header>
@@ -14,6 +34,7 @@ export default function Coats() {
             {" "}
             <h1>Casaco azul</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {CasacoAzul.length}</h2>
           </ContainerBuy>
         </SingleClass>
         <SingleClass>
@@ -25,6 +46,7 @@ export default function Coats() {
             {" "}
             <h1>Casaco branco</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {CasacoBranco.length}</h2>
           </ContainerBuy>
         </SingleClass>
         <SingleClass>
@@ -36,6 +58,7 @@ export default function Coats() {
             {" "}
             <h1>Casaco preto</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {CasacoPreto.length}</h2>
           </ContainerBuy>
         </SingleClass>
         <SingleClass>
@@ -47,6 +70,7 @@ export default function Coats() {
             {" "}
             <h1>Casaco verde</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {CasacoVerde.length}</h2>
           </ContainerBuy>
         </SingleClass>
       </ContainerBody>
@@ -57,6 +81,11 @@ export default function Coats() {
 const ContainerBuy = styled.div`
   display: flex;
   flex-direction: column;
+  h2 {
+    font-size: 15px;
+    color: grey;
+    margin-top: 5px;
+  }
 `;
 const BotaoComprar = styled.button`
   width: 70px;

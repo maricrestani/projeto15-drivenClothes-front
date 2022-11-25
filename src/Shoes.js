@@ -1,6 +1,25 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 export default function Shoes() {
+  const [TenisAzul, setTenisAzul] = useState([]);
+  const [TenisBranco, setTenisBranco] = useState([]);
+  const [TenisPreto, setTenisPreto] = useState([]);
+  const [TenisVerde, setTenisVerde] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/Stockin")
+      .then((res) => {
+        setTenisAzul(res.data.filter((e) => e.serial === "4001"));
+        setTenisBranco(res.data.filter((e) => e.serial === "4002"));
+        setTenisPreto(res.data.filter((e) => e.serial === "4003"));
+        setTenisVerde(res.data.filter((e) => e.serial === "4004"));
+      })
+      .catch((err) => console.log(err));
+  });
+
   return (
     <>
       <Header></Header>
@@ -14,6 +33,7 @@ export default function Shoes() {
             {" "}
             <h1>Tenis azul</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {TenisAzul.length}</h2>
           </ContainerBuy>
         </SingleClass>
         <SingleClass>
@@ -25,6 +45,7 @@ export default function Shoes() {
             {" "}
             <h1>Tenis branco</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {TenisBranco.length}</h2>
           </ContainerBuy>
         </SingleClass>
         <SingleClass>
@@ -36,6 +57,7 @@ export default function Shoes() {
             {" "}
             <h1>Tenis preto</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {TenisPreto.length}</h2>
           </ContainerBuy>
         </SingleClass>
         <SingleClass>
@@ -47,6 +69,7 @@ export default function Shoes() {
             {" "}
             <h1>Tenis verde</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {TenisVerde.length}</h2>
           </ContainerBuy>
         </SingleClass>
       </ContainerBody>
@@ -57,6 +80,11 @@ export default function Shoes() {
 const ContainerBuy = styled.div`
   display: flex;
   flex-direction: column;
+  h2 {
+    font-size: 15px;
+    color: grey;
+    margin-top: 5px;
+  }
 `;
 const BotaoComprar = styled.button`
   width: 70px;

@@ -1,6 +1,24 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 export default function Shirt() {
+  const [BlusaAzulLength, setBlusaAzulLength] = useState([]);
+  const [BlusaBrancaLength, setBlusaBrancaLength] = useState([]);
+  const [BlusaPretaLength, setBlusaPretaLength] = useState([]);
+  const [BlusaVerdeLength, setBlusaVerdeLength] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/Stockin")
+      .then((res) => {
+        setBlusaAzulLength(res.data.filter((e) => e.serial === "1001"));
+        setBlusaBrancaLength(res.data.filter((e) => e.serial === "1002"));
+        setBlusaPretaLength(res.data.filter((e) => e.serial === "1003"));
+        setBlusaVerdeLength(res.data.filter((e) => e.serial === "1004"));
+      })
+      .catch((err) => console.log(err));
+  });
+
   return (
     <>
       <Header></Header>
@@ -14,6 +32,7 @@ export default function Shirt() {
             {" "}
             <h1>Blusa azul</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {BlusaAzulLength.length}</h2>
           </ContainerBuy>
         </SingleClass>
         <SingleClass>
@@ -25,6 +44,7 @@ export default function Shirt() {
             {" "}
             <h1>Blusa branca</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {BlusaBrancaLength.length}</h2>
           </ContainerBuy>
         </SingleClass>
         <SingleClass>
@@ -36,6 +56,7 @@ export default function Shirt() {
             {" "}
             <h1>Blusa preta</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {BlusaPretaLength.length}</h2>
           </ContainerBuy>
         </SingleClass>
         <SingleClass>
@@ -47,6 +68,7 @@ export default function Shirt() {
             {" "}
             <h1>Blusa verde</h1>
             <BotaoComprar>COMPRAR</BotaoComprar>
+            <h2>Total disponível: {BlusaVerdeLength.length}</h2>
           </ContainerBuy>
         </SingleClass>
       </ContainerBody>
@@ -57,6 +79,11 @@ export default function Shirt() {
 const ContainerBuy = styled.div`
   display: flex;
   flex-direction: column;
+  h2 {
+    font-size: 15px;
+    color: grey;
+    margin-top: 5px;
+  }
 `;
 const BotaoComprar = styled.button`
   width: 70px;
