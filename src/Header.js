@@ -6,7 +6,9 @@ import UserIcon from "./assets/icons/person.svg";
 export default function Header() {
   return (
     <HeaderContainer>
-      <h1>Driven-Clothes</h1>
+      <Link to={"/"}>
+        <h1>Driven Clothes</h1>
+      </Link>
       <RightContainer>
         <Link to={"/signin"}>
           {" "}
@@ -35,6 +37,9 @@ const HeaderContainer = styled.div`
   img {
     width: 20px;
     height: 20px;
+  }
+  h1 {
+    font-size: 20px;
   }
 `;
 const RightContainer = styled.div`
