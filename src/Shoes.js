@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
+import { arrayTenis } from "./ArrayProdutos";
+import { PostItem } from "./PostItemFunction";
 export default function Shoes() {
   const [TenisAzul, setTenisAzul] = useState([]);
   const [TenisBranco, setTenisBranco] = useState([]);
@@ -20,58 +22,41 @@ export default function Shoes() {
       .catch((err) => console.log(err));
   });
 
+  function ShoesReturn(e) {
+    if (e === "4001") {
+      return TenisAzul.length;
+    } else if (e === "4002") {
+      return TenisBranco.length;
+    } else if (e === "4003") {
+      return TenisPreto.length;
+    } else if (e === "4004") {
+      return TenisVerde.length;
+    }
+  }
+
   return (
     <>
       <Header></Header>
       <ContainerBody>
-        <SingleClass>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2oU4Sf-xRWkn3erlk6HhGXG-8uqv4PWlYWA&usqp=CAU"
-            style={{ height: 100, width: 100 }}
-          />
-          <ContainerBuy>
-            {" "}
-            <h1>Tenis azul</h1>
-            <BotaoComprar>COMPRAR</BotaoComprar>
-            <h2>Total disponível: {TenisAzul.length}</h2>
-          </ContainerBuy>
-        </SingleClass>
-        <SingleClass>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2oU4Sf-xRWkn3erlk6HhGXG-8uqv4PWlYWA&usqp=CAU"
-            style={{ height: 100, width: 100 }}
-          />
-          <ContainerBuy>
-            {" "}
-            <h1>Tenis branco</h1>
-            <BotaoComprar>COMPRAR</BotaoComprar>
-            <h2>Total disponível: {TenisBranco.length}</h2>
-          </ContainerBuy>
-        </SingleClass>
-        <SingleClass>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2oU4Sf-xRWkn3erlk6HhGXG-8uqv4PWlYWA&usqp=CAU"
-            style={{ height: 100, width: 100 }}
-          />
-          <ContainerBuy>
-            {" "}
-            <h1>Tenis preto</h1>
-            <BotaoComprar>COMPRAR</BotaoComprar>
-            <h2>Total disponível: {TenisPreto.length}</h2>
-          </ContainerBuy>
-        </SingleClass>
-        <SingleClass>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2oU4Sf-xRWkn3erlk6HhGXG-8uqv4PWlYWA&usqp=CAU"
-            style={{ height: 100, width: 100 }}
-          />
-          <ContainerBuy>
-            {" "}
-            <h1>Tenis verde</h1>
-            <BotaoComprar>COMPRAR</BotaoComprar>
-            <h2>Total disponível: {TenisVerde.length}</h2>
-          </ContainerBuy>
-        </SingleClass>
+        {arrayTenis.map((b) => (
+          <SingleClass>
+            <img src={b.img} style={{ height: 100, width: 100 }} />
+            <ContainerBuy>
+              {" "}
+              <h1>{b.description}</h1>
+              <BotaoComprar
+                onClick={() =>
+                  PostItem(b.img, b.description, b.serial, b.value)
+                }
+              >
+                COMPRAR
+              </BotaoComprar>
+              <h2>Total disponível: {ShoesReturn(b.serial)}</h2>
+              <br />
+              <h2>Valor:{b.value},00</h2>
+            </ContainerBuy>
+          </SingleClass>
+        ))}
       </ContainerBody>
     </>
   );
