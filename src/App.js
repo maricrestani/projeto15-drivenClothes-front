@@ -1,6 +1,6 @@
 import GlobalStyle from "./assets/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AuthContext from "./auth";
+import AuthContext from "./auth.js";
 import Home from "./Home";
 import Cart from "./Cart";
 import Checkout from "./Checkout";
@@ -13,12 +13,14 @@ import Shirt from "./Shirt";
 import Shoes from "./Shoes";
 
 export default function App() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
+  const [orderData, setOrderData] = useState([]);
 
   return (
+
     <BrowserRouter>
       <GlobalStyle />
-      <AuthContext.Provider value={{ user, setUser }}>
+      <AuthContext.Provider value={{ user, setUser, orderData, setOrderData }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/class/shirt" element={<Shirt />} />

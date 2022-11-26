@@ -1,11 +1,13 @@
 import axios from "axios";
 import Header from "./Header";
-import { React, useState } from "react";
+import AuthContext from "./auth.js";
+import { React, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const URL = "http://localhost:5000";
 
 export default function SignUp() {
+  const { setUser, user } = useContext(AuthContext);
   const [register, setRegister] = useState({
     email: "",
     name: "",
@@ -17,6 +19,7 @@ export default function SignUp() {
   function handleForm(e) {
     const { name, value } = e.target;
     setRegister({ ...register, [name]: value });
+    setUser({ ...user, email: e.target.email });
   }
 
   function signUp(e) {
