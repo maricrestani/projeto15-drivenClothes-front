@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CartImg from "./assets/icons/cart-outline.svg";
@@ -6,11 +6,13 @@ import trashItem from "./assets/icons/trash-bin-outline.svg";
 import UserIcon from "./assets/icons/person.svg";
 import ReactModal from "react-modal";
 import axios from "axios";
+import AuthContext from "./auth.js";
 
 export default function Header() {
   const [openModal, setOpenModal] = useState(false);
   const [cartArray, setCartArray] = useState([]);
   const [saldo, setSaldo] = useState(0);
+  const { setOrderData } = useContext(AuthContext);
   function somaSaldo(e) {
     let total = 0;
     for (let i = 0; i < e.length; i++) {
@@ -25,6 +27,7 @@ export default function Header() {
       .get("http://localhost:5000/cart")
       .then((res) => {
         setCartArray(res.data);
+        setOrderData(res.data);
         somaSaldo(res.data);
       })
       .catch((err) => console.log(err));
@@ -40,7 +43,9 @@ export default function Header() {
 
   return (
     <HeaderContainer>
-      <h1>Driven-Clothes</h1>
+      <Link to={"/"}>
+        <h1>Driven Clothes</h1>
+      </Link>
       <RightContainer>
         <Link to={"/signin"}>
           {" "}
@@ -162,6 +167,9 @@ const HeaderContainer = styled.div`
   img {
     width: 20px;
     height: 20px;
+  }
+  h1 {
+    font-size: 20px;
   }
 `;
 const RightContainer = styled.div`
