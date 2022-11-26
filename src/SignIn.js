@@ -1,11 +1,14 @@
 import axios from "axios";
+import AuthContext from "./auth.js";
 import Header from "./Header";
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const URL = "http://localhost:5000";
 
+
 export default function SignIn() {
+  const { setUser, user } = useContext(AuthContext);
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -15,6 +18,7 @@ export default function SignIn() {
   function handleForm(e) {
     const { name, value } = e.target;
     setLogin({ ...login, [name]: value });
+    setUser({...user, email:e.target.email})
   }
 
   function SignIn(e) {

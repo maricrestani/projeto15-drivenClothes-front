@@ -1,11 +1,16 @@
+import axios from "axios";
 import styled from "styled-components";
-import { useState } from "react";
+import { React, useState, useContext } from "react";
 import Header from "./Header";
+import AuthContext from "./auth.js";
+const URL = "http://localhost:5000";
 
 export default function Checkout() {
+  const { orderData, user } = useContext(AuthContext);
+  console.log("this is order data", orderData);
+
   const [purchase, setPurchase] = useState({
-    name: "",
-    email: "",
+    email: user.email,
     adress: {
       cep: "",
       street: "",
@@ -15,6 +20,7 @@ export default function Checkout() {
       city: "",
     },
     payment: { numCard: "", nameCard: "", CVV: "", cpf: "", valCard: "" },
+    order: orderData,
   });
 
   function handleForm(e) {
@@ -22,8 +28,19 @@ export default function Checkout() {
     setPurchase({ ...purchase, [name]: value });
   }
 
-  function registerPurchase() {
-    alert("compra registrda");
+  function registerPurchase(e) {
+    e.preventDefault();
+    console.log("purchase no checkout", purchase);
+    axios
+      .post(`${URL}/checkout`, purchase)
+
+      .then((res) => {
+        alert("Compra realizada com sucesso!");
+      })
+
+      .catch((err) => {
+        alert(`Falha na compra - ${err.message}`);
+      });
   }
 
   return (
