@@ -2,7 +2,6 @@ import GlobalStyle from "./assets/GlobalStyle";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthContext from "./auth.js";
 import Home from "./Home";
-import Cart from "./Cart";
 import Checkout from "./Checkout";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -29,7 +28,6 @@ export default function App() {
           <Route path="/class/coats" element={<Coats />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </AuthContext.Provider>
