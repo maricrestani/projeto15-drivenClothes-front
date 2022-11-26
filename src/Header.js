@@ -13,6 +13,7 @@ export default function Header() {
   const [cartArray, setCartArray] = useState([]);
   const [saldo, setSaldo] = useState(0);
   const { setOrderData } = useContext(AuthContext);
+
   function somaSaldo(e) {
     let total = 0;
     for (let i = 0; i < e.length; i++) {

@@ -2,12 +2,26 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
+import { arrayCasacos } from "./ArrayProdutos";
+import { PostItem } from "./PostItemFunction";
 
 export default function Coats() {
   const [CasacoAzul, setCasacoAzul] = useState([]);
   const [CasacoBranco, setCasacoBranco] = useState([]);
   const [CasacoPreto, setCasacoPreto] = useState([]);
   const [CasacoVerde, setCasacoVerde] = useState([]);
+
+  function CoatReturn(e) {
+    if (e === "3001") {
+      return CasacoAzul.length;
+    } else if (e === "3002") {
+      return CasacoBranco.length;
+    } else if (e === "3003") {
+      return CasacoPreto.length;
+    } else if (e === "3004") {
+      return CasacoVerde.length;
+    }
+  }
 
   useEffect(() => {
     axios
@@ -25,54 +39,24 @@ export default function Coats() {
     <>
       <Header></Header>
       <ContainerBody>
-        <SingleClass>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2oU4Sf-xRWkn3erlk6HhGXG-8uqv4PWlYWA&usqp=CAU"
-            style={{ height: 100, width: 100 }}
-          />
-          <ContainerBuy>
-            {" "}
-            <h1>Casaco azul</h1>
-            <BotaoComprar>COMPRAR</BotaoComprar>
-            <h2>Total disponível: {CasacoAzul.length}</h2>
-          </ContainerBuy>
-        </SingleClass>
-        <SingleClass>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2oU4Sf-xRWkn3erlk6HhGXG-8uqv4PWlYWA&usqp=CAU"
-            style={{ height: 100, width: 100 }}
-          />
-          <ContainerBuy>
-            {" "}
-            <h1>Casaco branco</h1>
-            <BotaoComprar>COMPRAR</BotaoComprar>
-            <h2>Total disponível: {CasacoBranco.length}</h2>
-          </ContainerBuy>
-        </SingleClass>
-        <SingleClass>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2oU4Sf-xRWkn3erlk6HhGXG-8uqv4PWlYWA&usqp=CAU"
-            style={{ height: 100, width: 100 }}
-          />
-          <ContainerBuy>
-            {" "}
-            <h1>Casaco preto</h1>
-            <BotaoComprar>COMPRAR</BotaoComprar>
-            <h2>Total disponível: {CasacoPreto.length}</h2>
-          </ContainerBuy>
-        </SingleClass>
-        <SingleClass>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2oU4Sf-xRWkn3erlk6HhGXG-8uqv4PWlYWA&usqp=CAU"
-            style={{ height: 100, width: 100 }}
-          />
-          <ContainerBuy>
-            {" "}
-            <h1>Casaco verde</h1>
-            <BotaoComprar>COMPRAR</BotaoComprar>
-            <h2>Total disponível: {CasacoVerde.length}</h2>
-          </ContainerBuy>
-        </SingleClass>
+        {arrayCasacos.map((b) => (
+          <SingleClass>
+            <img src={b.img} style={{ height: 100, width: 100 }} />
+            <ContainerBuy>
+              <h1>{b.description}</h1>
+              <BotaoComprar
+                onClick={() =>
+                  PostItem(b.img, b.description, b.serial, b.value)
+                }
+              >
+                COMPRAR
+              </BotaoComprar>
+              <h2>Total disponível: {CoatReturn(b.serial)}</h2>
+              <br />
+              <h2>Valor:{b.value},00</h2>
+            </ContainerBuy>
+          </SingleClass>
+        ))}
       </ContainerBody>
     </>
   );
