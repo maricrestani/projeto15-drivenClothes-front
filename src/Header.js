@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CartImg from "./assets/icons/cart-outline.svg";
+import trashItem from "./assets/icons/trash-bin-outline.svg";
 import UserIcon from "./assets/icons/person.svg";
 import ReactModal from "react-modal";
 import axios from "axios";
@@ -29,6 +30,14 @@ export default function Header() {
       .catch((err) => console.log(err));
   }, [cartArray]);
 
+  function DeleteItem(e) {
+    console.log(e);
+    axios
+      .delete(`http://localhost:5000/cart/${e}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }
+
   return (
     <HeaderContainer>
       <h1>Driven-Clothes</h1>
@@ -40,7 +49,7 @@ export default function Header() {
 
         <img src={CartImg} alt="carrinho" onClick={() => setOpenModal(true)} />
 
-        <h2>0</h2>
+        <h2>{cartArray.length}</h2>
       </RightContainer>
       <ReactModal
         isOpen={openModal}
@@ -71,22 +80,46 @@ export default function Header() {
           <CartContainer>
             {cartArray.map((m) => (
               <CartItem>
-                <img src={m.img} />
+                <Thumbnail src={m.img} />
                 <ItemInformation>
                   <h1>{m.description}</h1>
                   <h2>Valor: {m.value},00 R$</h2>
                 </ItemInformation>
+                <Trash
+                  src={trashItem}
+                  e={m._id}
+                  onClick={() => DeleteItem(m._id)}
+                />
               </CartItem>
             ))}
           </CartContainer>
           <h2>Valor Total: {saldo},00</h2>
           <CheckoutButton>Comprar</CheckoutButton>
+          <CloseCart onClick={() => setOpenModal(false)}>X</CloseCart>
         </ModalContainer>
       </ReactModal>
     </HeaderContainer>
   );
 }
 
+const Thumbnail = styled.img`
+  width: 50px;
+  height: 50px;
+`;
+const Trash = styled.img`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 0px;
+`;
+const CloseCart = styled.button`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: black;
+`;
 const ItemInformation = styled.div`
   margin-left: 5%;
 `;
@@ -96,10 +129,6 @@ const CartItem = styled.div`
   margin-top: 15px;
   align-items: center;
   justify-content: flex-start;
-  img {
-    width: 50px;
-    height: 50px;
-  }
 `;
 const CartContainer = styled.div`
   width: 100%;
