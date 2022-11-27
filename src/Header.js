@@ -12,7 +12,7 @@ export default function Header() {
   const [openModal, setOpenModal] = useState(false);
   const [cartArray, setCartArray] = useState([]);
   const [saldo, setSaldo] = useState(0);
-  const { setOrderData, orderData } = useContext(AuthContext);
+  const { setOrderData, setPriceOrder } = useContext(AuthContext);
 
   function somaSaldo(e) {
     let total = 0;
@@ -20,6 +20,7 @@ export default function Header() {
       e[i].value = +e[i].value;
       total += e[i].value;
       setSaldo(total);
+      setPriceOrder(total);
     }
   }
 
@@ -89,7 +90,7 @@ export default function Header() {
                 <Thumbnail src={m.img} />
                 <ItemInformation>
                   <h1>{m.description}</h1>
-                  <h2>Valor: {m.value},00 R$</h2>
+                  <h2>Valor: R${m.value},00</h2>
                 </ItemInformation>
                 <Trash
                   src={trashItem}

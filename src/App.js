@@ -13,7 +13,8 @@ import Shoes from "./Shoes";
 
 export default function App() {
   const [user, setUser] = useState();
-  const [orderData, setOrderData] = useState([]);
+  const [orderData, setOrderData] = useState();
+  const [priceOrder, setPriceOrder] = useState();
 
   return (
     <BrowserRouter>
@@ -24,6 +25,8 @@ export default function App() {
           setUser,
           orderData,
           setOrderData,
+          priceOrder,
+          setPriceOrder,
         }}
       >
         <Routes>

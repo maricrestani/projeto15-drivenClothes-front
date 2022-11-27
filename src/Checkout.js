@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { React, useState, useContext } from "react";
 import Header from "./Header";
@@ -6,21 +7,19 @@ import AuthContext from "./auth.js";
 const URL = "http://localhost:5000";
 
 export default function Checkout() {
-  const { orderData, user } = useContext(AuthContext);
-  console.log("this is order data", orderData);
+  const { orderData, priceOrder } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const email = localStorage.getItem("emailLocalStorage");
 
   const [purchase, setPurchase] = useState({
-    email: user.email,
-    adress: {
-      cep: "",
-      street: "",
-      num: "",
-      compl: "",
-      neighborhood: "",
-      city: "",
-    },
-    payment: { numCard: "", nameCard: "", CVV: "", cpf: "", valCard: "" },
+    email: email,
+    cpf: "",
+    cardName: "",
+    cardNumber: "",
+    securityNumber: "",
+    expirationDate: "",
     order: orderData,
+    price: priceOrder,
   });
 
   function handleForm(e) {
@@ -30,12 +29,13 @@ export default function Checkout() {
 
   function registerPurchase(e) {
     e.preventDefault();
-    console.log("purchase no checkout", purchase);
+
     axios
       .post(`${URL}/checkout`, purchase)
 
       .then((res) => {
         alert("Compra realizada com sucesso!");
+        navigate("/");
       })
 
       .catch((err) => {
@@ -49,89 +49,29 @@ export default function Checkout() {
       <CheckoutContainer>
         <h1>CHECKOUT</h1>
         <FormContainer>
-          <h2>DETALHES DA ENTREGA</h2>
-          <form onSubmit={registerPurchase}>
-            <FormItem>
-              <label>CEP</label>
-              <input
-                required
-                name="cep"
-                value={purchase.adress.cep}
-                placeholder=""
-                type="text"
-                onChange={handleForm}
-              />
-            </FormItem>
-            <FormItem>
-              <label>RUA</label>
-              <input
-                required
-                name="street"
-                value={purchase.adress.street}
-                placeholder=""
-                type="text"
-                onChange={handleForm}
-              />
-            </FormItem>
-            <AlignDiv>
-              <FormItem2>
-                <label>NÚMERO</label>
-                <input
-                  required
-                  name="num"
-                  value={purchase.adress.num}
-                  placeholder=""
-                  type="number"
-                  onChange={handleForm}
-                />
-              </FormItem2>
-              <FormItem2>
-                <label>COMPLEMENTO</label>
-                <input
-                  required
-                  name="compl"
-                  value={purchase.adress.compl}
-                  placeholder=""
-                  type="number"
-                  onChange={handleForm}
-                />
-              </FormItem2>
-            </AlignDiv>
-            <AlignDiv>
-              <FormItem2>
-                <label>BAIRRO</label>
-                <input
-                  required
-                  name="neighborhood"
-                  value={purchase.adress.neighborhood}
-                  placeholder=""
-                  type="text"
-                  onChange={handleForm}
-                />
-              </FormItem2>
-              <FormItem2>
-                <label>CIDADE</label>
-                <input
-                  required
-                  name="city"
-                  value={purchase.adress.city}
-                  placeholder=""
-                  type="text"
-                  onChange={handleForm}
-                />
-              </FormItem2>
-            </AlignDiv>
-          </form>
+          <h2>DETALHES DA COMPRA</h2>
+          <CartContainer>
+            {orderData.map((m) => (
+              <CartItem>
+                <Thumbnail src={m.img} />
+                <ItemInformation>
+                  <h2>{m.description}</h2>
+                  <h2>Valor: R${m.value},00 </h2>
+                </ItemInformation>
+              </CartItem>
+            ))}
+          </CartContainer>
+          <h3>Valor Total: R${priceOrder},00</h3>
         </FormContainer>
-        <FormContainer>
-          <h2>DETALHES DO PAGAMENTO</h2>
-          <form>
+        <h2>DETALHES DO PAGAMENTO</h2>
+        <form onSubmit={registerPurchase}>
+          <FormContainer>
             <FormItem>
               <label>CPF</label>
               <input
                 required
                 name="cpf"
-                value={purchase.payment.cpf}
+                value={purchase.cpf}
                 placeholder=""
                 type="number"
                 onChange={handleForm}
@@ -141,8 +81,8 @@ export default function Checkout() {
               <label>NOME IMPRESSO NO CARTÃO</label>
               <input
                 required
-                name="nameCard"
-                value={purchase.payment.nameCard}
+                name="cardName"
+                value={purchase.cardName}
                 placeholder=""
                 type="text"
                 onChange={handleForm}
@@ -152,8 +92,8 @@ export default function Checkout() {
               <label>NÚMERO DO CARTÃO</label>
               <input
                 required
-                name="numCard"
-                value={purchase.payment.numCard}
+                name="cardNumber"
+                value={purchase.cardNumber}
                 placeholder=""
                 type="number"
                 onChange={handleForm}
@@ -164,8 +104,8 @@ export default function Checkout() {
                 <label>VALIDADE</label>
                 <input
                   required
-                  name="valCard"
-                  value={purchase.payment.valCard}
+                  name="expirationDate"
+                  value={purchase.expirationDate}
                   placeholder="mm/aaaa"
                   type="text"
                   onChange={handleForm}
@@ -175,21 +115,43 @@ export default function Checkout() {
                 <label>CVV</label>
                 <input
                   required
-                  name="CVV"
-                  value={purchase.payment.CVV}
+                  name="securityNumber"
+                  value={purchase.securityNumber}
                   placeholder=""
                   type="text"
                   onChange={handleForm}
                 />
               </FormItem2>
             </AlignDiv>
-          </form>
-        </FormContainer>
-        <button type="submit">COMPRAR</button>
+            <button type="submit">COMPRAR</button>
+          </FormContainer>
+        </form>
       </CheckoutContainer>
     </>
   );
 }
+
+const CartItem = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 15px;
+  align-items: center;
+  justify-content: flex-start;
+`;
+const CartContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Thumbnail = styled.img`
+  width: 50px;
+  height: 50px;
+`;
+
+const ItemInformation = styled.div`
+  margin-left: 5%;
+`;
 
 const AlignDiv = styled.div`
   display: flex;
@@ -217,6 +179,14 @@ const CheckoutContainer = styled.div`
     display: flex;
     flex-direction: column;
   }
+`;
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   button {
     font-size: 16px;
     display: flex;
@@ -233,12 +203,11 @@ const CheckoutContainer = styled.div`
     color: #ffffff;
     cursor: pointer;
   }
-`;
-
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  h3 {
+    font-size: 18px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
 `;
 
 const FormItem = styled.div`

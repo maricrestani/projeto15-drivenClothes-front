@@ -26,6 +26,7 @@ export default function SignIn() {
       .post(`${URL}/signin`, login)
       .then((res) => {
         localStorage.setItem("tokenLocalStorage", res.data.token);
+        localStorage.setItem("emailLocalStorage", res.data.email);
         setUser(res.data.email)
         navigate("/");
       })
