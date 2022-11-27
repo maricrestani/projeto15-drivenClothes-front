@@ -101,6 +101,8 @@ const LoginContainer = styled.div`
   h1 {
     font-size: 40px;
     margin-bottom: 60px;
+    font-family: "Saira Stencil One", cursive;
+    color: black;
   }
   h2 {
     font-size: 16px;
@@ -123,7 +125,7 @@ const LoginContainer = styled.div`
     width: 300px;
     height: 30px;
     border: 0px;
-    border-bottom: 2px solid grey;
+    border-bottom: 2px solid black;
   }
 
   button {
@@ -136,11 +138,12 @@ const LoginContainer = styled.div`
     margin-bottom: 24px;
     width: 200px;
     height: 40px;
-    border-radius: 40px;
+    border-radius: 10px;
     border: 0px;
-    background-color: grey;
+    background-color: black;
     color: #ffffff;
     cursor: pointer;
+    box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
   }
 
   h3 {
