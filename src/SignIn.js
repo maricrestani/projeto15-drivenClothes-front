@@ -6,9 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const URL = "http://localhost:5000";
 
-
 export default function SignIn() {
-  const { setUser, user } = useContext(AuthContext);
+  const { setUser} = useContext(AuthContext);
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -18,7 +17,6 @@ export default function SignIn() {
   function handleForm(e) {
     const { name, value } = e.target;
     setLogin({ ...login, [name]: value });
-    setUser({...user, email:e.target.email})
   }
 
   function SignIn(e) {
@@ -27,6 +25,8 @@ export default function SignIn() {
     axios
       .post(`${URL}/signin`, login)
       .then((res) => {
+        localStorage.setItem("tokenLocalStorage", res.data.token);
+        setUser(res.data.email)
         navigate("/");
       })
 

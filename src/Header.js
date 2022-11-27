@@ -12,7 +12,7 @@ export default function Header() {
   const [openModal, setOpenModal] = useState(false);
   const [cartArray, setCartArray] = useState([]);
   const [saldo, setSaldo] = useState(0);
-  const { setOrderData } = useContext(AuthContext);
+  const { setOrderData, orderData } = useContext(AuthContext);
 
   function somaSaldo(e) {
     let total = 0;
@@ -100,7 +100,9 @@ export default function Header() {
             ))}
           </CartContainer>
           <h2>Valor Total: {saldo},00</h2>
-          <CheckoutButton>Comprar</CheckoutButton>
+          <Link to="/checkout">
+            <CheckoutButton>Comprar</CheckoutButton>
+          </Link>
           <CloseCart onClick={() => setOpenModal(false)}>X</CloseCart>
         </ModalContainer>
       </ReactModal>
