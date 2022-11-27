@@ -2,9 +2,9 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import CartImg from "./assets/icons/cart-outline.svg";
+import CartImg from "./assets/icons/cart.png";
 import trashItem from "./assets/icons/trash-bin-outline.svg";
-import UserIcon from "./assets/icons/person.svg";
+import UserIcon from "./assets/icons/person.png";
 import ReactModal from "react-modal";
 import axios from "axios";
 import AuthContext from "./auth.js";
@@ -61,16 +61,40 @@ export default function Header() {
       <Link to={"/"}>
         <h1>Driven Clothes</h1>
       </Link>
+      <CenterContainer>
+        <Link to={"/class/shirt"}>
+          <h2>Blusas</h2>
+        </Link>
+        <Link to={"/class/pants"}>
+          {" "}
+          <h2>Calças</h2>
+        </Link>
+        <Link to={"/class/coats"}>
+          {" "}
+          <h2>Casacos</h2>
+        </Link>
+        <Link to={"/class/shoes"}>
+          {" "}
+          <h2>Tênis</h2>
+        </Link>
+      </CenterContainer>
+
       <RightContainer>
         <Link to={"/signin"}>
           {" "}
           <img src={UserIcon} alt="usuário" />
         </Link>
+        <div>
+          <img
+            src={CartImg}
+            alt="carrinho"
+            onClick={() => setOpenModal(true)}
+          />
 
-        <img src={CartImg} alt="carrinho" onClick={() => setOpenModal(true)} />
-
-        <h2>{cartArray.length}</h2>
+          <h2>{cartArray.length}</h2>
+        </div>
       </RightContainer>
+
       <ReactModal
         isOpen={openModal}
         ariaHideApp={false}
@@ -124,6 +148,18 @@ export default function Header() {
   );
 }
 
+const CenterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+
+  h2 {
+    color: white;
+    font-size: 15px;
+  }
+`;
+
 const Thumbnail = styled.img`
   width: 50px;
   height: 50px;
@@ -175,22 +211,40 @@ const ModalContainer = styled.div`
 const HeaderContainer = styled.div`
   position: fixed;
   top: 0%;
-  background-color: grey;
+  background-color: black;
   width: 100%;
   height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
   img {
     width: 20px;
     height: 20px;
+    color: white;
   }
   h1 {
+    font-family: "Saira Stencil One", cursive;
     font-size: 20px;
+    color: white;
+    margin-left: 10px;
   }
 `;
 const RightContainer = styled.div`
   display: flex;
   margin-right: 10px;
+  margin-left: 10px;
   align-items: center;
+  justify-content: space-between;
+  width: 80px;
+
+  div {
+    display: flex;
+    width: 35px;
+    justify-content: space-between;
+  }
+  h2 {
+    color: white;
+    font-size: 20px;
+  }
 `;
