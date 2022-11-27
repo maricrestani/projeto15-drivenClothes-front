@@ -100,7 +100,9 @@ export default function Header() {
             ))}
           </CartContainer>
           <h2>Valor Total: {saldo},00</h2>
-          <CheckoutButton>Comprar</CheckoutButton>
+          <Link to="/checkout">
+            <CheckoutButton>Comprar</CheckoutButton>
+          </Link>
           <CloseCart onClick={() => setOpenModal(false)}>X</CloseCart>
         </ModalContainer>
       </ReactModal>
