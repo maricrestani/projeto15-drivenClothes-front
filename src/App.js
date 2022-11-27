@@ -24,8 +24,6 @@ export default function App() {
           setUser,
           orderData,
           setOrderData,
-          userToken,
-          setUserToken,
         }}
       >
         <Routes>
