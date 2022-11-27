@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CartImg from "./assets/icons/cart-outline.svg";
@@ -9,10 +10,11 @@ import axios from "axios";
 import AuthContext from "./auth.js";
 
 export default function Header() {
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [cartArray, setCartArray] = useState([]);
   const [saldo, setSaldo] = useState(0);
-  const { setOrderData, orderData } = useContext(AuthContext);
+  const { setOrderData, setPriceOrder } = useContext(AuthContext);
 
   function somaSaldo(e) {
     let total = 0;
@@ -20,6 +22,7 @@ export default function Header() {
       e[i].value = +e[i].value;
       total += e[i].value;
       setSaldo(total);
+      setPriceOrder(total);
     }
   }
 
@@ -40,6 +43,17 @@ export default function Header() {
       .delete(`http://localhost:5000/cart/${e}`)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+  }
+
+  function finishOrder() {
+    const tokenLocalStorage = localStorage.getItem("tokenLocalStorage");
+
+    if (tokenLocalStorage) {
+      navigate("/checkout");
+    } else {
+      alert("Você ainda não está logado, por favor faça login!");
+      navigate("/signin");
+    }
   }
 
   return (
@@ -89,7 +103,7 @@ export default function Header() {
                 <Thumbnail src={m.img} />
                 <ItemInformation>
                   <h1>{m.description}</h1>
-                  <h2>Valor: {m.value},00 R$</h2>
+                  <h2>Valor: R${m.value},00</h2>
                 </ItemInformation>
                 <Trash
                   src={trashItem}
@@ -100,9 +114,9 @@ export default function Header() {
             ))}
           </CartContainer>
           <h2>Valor Total: {saldo},00</h2>
-          <Link to="/checkout">
-            <CheckoutButton>Comprar</CheckoutButton>
-          </Link>
+
+          <CheckoutButton onClick={finishOrder}>Comprar</CheckoutButton>
+
           <CloseCart onClick={() => setOpenModal(false)}>X</CloseCart>
         </ModalContainer>
       </ReactModal>
