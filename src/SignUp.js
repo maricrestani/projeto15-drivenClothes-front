@@ -7,7 +7,7 @@ import styled from "styled-components";
 const URL = "http://localhost:5000";
 
 export default function SignUp() {
-  const { setUser, user } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [register, setRegister] = useState({
     email: "",
     name: "",
@@ -19,7 +19,6 @@ export default function SignUp() {
   function handleForm(e) {
     const { name, value } = e.target;
     setRegister({ ...register, [name]: value });
-    setUser({ ...user, email: e.target.email });
   }
 
   function signUp(e) {
@@ -29,6 +28,8 @@ export default function SignUp() {
       .post(`${URL}/signup`, register)
 
       .then((res) => {
+        localStorage.setItem("tokenLocalStorage", res.data.token);
+        setUser(res.data.email);
         navigate("/");
       })
 

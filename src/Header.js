@@ -12,7 +12,7 @@ export default function Header() {
   const [openModal, setOpenModal] = useState(false);
   const [cartArray, setCartArray] = useState([]);
   const [saldo, setSaldo] = useState(0);
-  const { setOrderData } = useContext(AuthContext);
+  const { setOrderData, orderData } = useContext(AuthContext);
 
   function somaSaldo(e) {
     let total = 0;

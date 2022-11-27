@@ -12,14 +12,22 @@ import Shirt from "./Shirt";
 import Shoes from "./Shoes";
 
 export default function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const [orderData, setOrderData] = useState([]);
 
   return (
-
     <BrowserRouter>
       <GlobalStyle />
-      <AuthContext.Provider value={{ user, setUser, orderData, setOrderData }}>
+      <AuthContext.Provider
+        value={{
+          user,
+          setUser,
+          orderData,
+          setOrderData,
+          userToken,
+          setUserToken,
+        }}
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/class/shirt" element={<Shirt />} />
