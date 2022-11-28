@@ -67,6 +67,7 @@ export default function Shoes() {
 const ContainerBuy = styled.div`
   display: flex;
   flex-direction: column;
+
   h2 {
     font-size: 15px;
     color: grey;
@@ -76,7 +77,10 @@ const ContainerBuy = styled.div`
 const BotaoComprar = styled.button`
   width: 70px;
   height: 20px;
-  background-color: green;
+  background-color: black;
+  font-family: "Saira Stencil One", cursive;
+  font-size: 20px;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,6 +99,10 @@ const SingleClass = styled.div`
   justify-content: flex-start;
   width: 100%;
   box-sizing: border-box;
+  &:hover {
+    border: 1px solid green;
+    overflow: hidden;
+  }
   img {
     border-radius: 5px;
     margin-right: 20%;
