@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import { arrayTenis } from "./ArrayProdutos";
 import { PostItem } from "./PostItemFunction";
+import DisableButton from "./DisableButton";
 export default function Shoes() {
   const [TenisAzul, setTenisAzul] = useState([]);
   const [TenisBranco, setTenisBranco] = useState([]);
@@ -48,6 +49,7 @@ export default function Shoes() {
                 onClick={() =>
                   PostItem(b.img, b.description, b.serial, b.value)
                 }
+                disabled={DisableButton(ShoesReturn(b.serial))}
               >
                 COMPRAR
               </BotaoComprar>

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import { PostItem } from "./PostItemFunction";
 import { arrayCalcas } from "./ArrayProdutos";
+import DisableButton from "./DisableButton";
 export default function Pants() {
   const [CalcaAzul, setCalcaAzul] = useState([]);
   const [CalcaBranca, setCalcaBranca] = useState([]);
@@ -48,6 +49,7 @@ export default function Pants() {
                 onClick={() =>
                   PostItem(b.img, b.description, b.serial, b.value)
                 }
+                disabled={DisableButton(CoatReturn(b.serial))}
               >
                 COMPRAR
               </BotaoComprar>

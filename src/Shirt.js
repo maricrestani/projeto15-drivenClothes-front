@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import { arrayBlusas } from "./ArrayProdutos";
 import { PostItem } from "./PostItemFunction";
+import DisableButton from "./DisableButton";
 export default function Shirt() {
   const [BlusaAzulLength, setBlusaAzulLength] = useState([]);
   const [BlusaBrancaLength, setBlusaBrancaLength] = useState([]);
@@ -48,6 +49,7 @@ export default function Shirt() {
                 onClick={() =>
                   PostItem(b.img, b.description, b.serial, b.value)
                 }
+                disabled={DisableButton(ShirtReturn(b.serial))}
               >
                 COMPRAR
               </BotaoComprar>
