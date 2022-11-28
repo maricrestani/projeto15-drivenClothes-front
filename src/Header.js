@@ -196,6 +196,11 @@ const CartContainer = styled.div`
 `;
 const CheckoutButton = styled.button`
   margin-top: 10px;
+  background-color: black;
+  font-family: "Saira Stencil One", cursive;
+  font-size: 20px;
+  color: white;
+  margin-bottom: 5px;
 `;
 
 const ModalContainer = styled.div`
@@ -207,6 +212,10 @@ const ModalContainer = styled.div`
   align-items: center;
   position: absolute;
   flex-direction: column;
+  h2 {
+    font-family: "Saira Stencil One", cursive;
+    font-size: 20px;
+  }
 `;
 const HeaderContainer = styled.div`
   position: fixed;

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import { arrayCasacos } from "./ArrayProdutos";
 import { PostItem } from "./PostItemFunction";
+import DisableButton from "./DisableButton";
 
 export default function Coats() {
   const [CasacoAzul, setCasacoAzul] = useState([]);
@@ -48,6 +49,7 @@ export default function Coats() {
                 onClick={() =>
                   PostItem(b.img, b.description, b.serial, b.value)
                 }
+                disabled={DisableButton(CoatReturn(b.serial))}
               >
                 COMPRAR
               </BotaoComprar>
@@ -74,7 +76,10 @@ const ContainerBuy = styled.div`
 const BotaoComprar = styled.button`
   width: 70px;
   height: 20px;
-  background-color: green;
+  background-color: black;
+  font-family: "Saira Stencil One", cursive;
+  font-size: 20px;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,6 +98,10 @@ const SingleClass = styled.div`
   justify-content: flex-start;
   width: 100%;
   box-sizing: border-box;
+  &:hover {
+    border: 1px solid green;
+    overflow: hidden;
+  }
   img {
     border-radius: 5px;
     margin-right: 20%;
