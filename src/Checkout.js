@@ -197,7 +197,7 @@ const FormContainer = styled.div`
     margin-bottom: 24px;
     width: 200px;
     height: 40px;
-    border-radius: 40px;
+    font-family: "Saira Stencil One", cursive;
     border: 0px;
     background-color: black;
     color: #ffffff;
