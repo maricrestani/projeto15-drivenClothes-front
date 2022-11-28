@@ -44,7 +44,7 @@ export const arrayCasacos = [
     stockName: "CasacoBranco",
   },
   {
-    img: "https://cdn1.vectorstock.com/i/1000x1000/21/55/black-man-suit-on-white-background-business-suit-vector-19412155.jpg",
+    img: "https://a-static.mlcdn.com.br/800x560/jaqueta-masculina-inverno-corta-vento-acolchoada-nylon-frio-krayane/beafashionstore/75d371be01f011ed91e44201ac185079/df26cb22b2f19c0ecd5090380e9faf92.jpeg",
     description: "Casaco preto",
     serial: "3003",
     value: 65,
